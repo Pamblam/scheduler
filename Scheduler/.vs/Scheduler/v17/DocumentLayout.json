@@ -3,8 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\LabUser\\Desktop\\scheduler\\Scheduler\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D2E193AA-603D-41DB-B0F1-FFC7F94EB97D}|Scheduler.csproj|c:\\users\\labuser\\desktop\\scheduler\\scheduler\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{D2E193AA-603D-41DB-B0F1-FFC7F94EB97D}|Scheduler.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{D2E193AA-603D-41DB-B0F1-FFC7F94EB97D}|Scheduler.csproj|c:\\users\\labuser\\desktop\\scheduler\\scheduler\\forms\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D2E193AA-603D-41DB-B0F1-FFC7F94EB97D}|Scheduler.csproj|solutionrelative:forms\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D2E193AA-603D-41DB-B0F1-FFC7F94EB97D}|Scheduler.csproj|c:\\users\\labuser\\desktop\\scheduler\\scheduler\\forms\\login.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D2E193AA-603D-41DB-B0F1-FFC7F94EB97D}|Scheduler.csproj|solutionrelative:forms\\login.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D2E193AA-603D-41DB-B0F1-FFC7F94EB97D}|Scheduler.csproj|c:\\users\\labuser\\desktop\\scheduler\\scheduler\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D2E193AA-603D-41DB-B0F1-FFC7F94EB97D}|Scheduler.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D2E193AA-603D-41DB-B0F1-FFC7F94EB97D}|Scheduler.csproj|c:\\users\\labuser\\desktop\\scheduler\\scheduler\\resources\\resources.fr.resx||{FF4D6ACA-9352-4A5F-821E-F4D6EBDCAB11}",
+      "RelativeMoniker": "D:0:0:{D2E193AA-603D-41DB-B0F1-FFC7F94EB97D}|Scheduler.csproj|solutionrelative:resources\\resources.fr.resx||{FF4D6ACA-9352-4A5F-821E-F4D6EBDCAB11}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D2E193AA-603D-41DB-B0F1-FFC7F94EB97D}|Scheduler.csproj|c:\\users\\labuser\\desktop\\scheduler\\scheduler\\resources\\resources.resx||{FF4D6ACA-9352-4A5F-821E-F4D6EBDCAB11}",
+      "RelativeMoniker": "D:0:0:{D2E193AA-603D-41DB-B0F1-FFC7F94EB97D}|Scheduler.csproj|solutionrelative:resources\\resources.resx||{FF4D6ACA-9352-4A5F-821E-F4D6EBDCAB11}"
     }
   ],
   "DocumentGroupContainers": [
@@ -19,14 +35,65 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Form1.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\LabUser\\Desktop\\scheduler\\Scheduler\\Form1.cs",
-              "RelativeDocumentMoniker": "Form1.cs",
-              "ToolTip": "C:\\Users\\LabUser\\Desktop\\scheduler\\Scheduler\\Form1.cs [Design]",
-              "RelativeToolTip": "Form1.cs [Design]",
+              "Title": "Login.cs",
+              "DocumentMoniker": "C:\\Users\\LabUser\\Desktop\\scheduler\\Scheduler\\forms\\Login.cs",
+              "RelativeDocumentMoniker": "forms\\Login.cs",
+              "ToolTip": "C:\\Users\\LabUser\\Desktop\\scheduler\\Scheduler\\forms\\Login.cs",
+              "RelativeToolTip": "forms\\Login.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAIAAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-11T19:43:41.956Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2025-03-11T20:20:38.016Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Login.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\LabUser\\Desktop\\scheduler\\Scheduler\\forms\\Login.Designer.cs",
+              "RelativeDocumentMoniker": "forms\\Login.Designer.cs",
+              "ToolTip": "C:\\Users\\LabUser\\Desktop\\scheduler\\Scheduler\\forms\\Login.Designer.cs",
+              "RelativeToolTip": "forms\\Login.Designer.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-11T20:20:01.05Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\LabUser\\Desktop\\scheduler\\Scheduler\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\LabUser\\Desktop\\scheduler\\Scheduler\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAIAAAATAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-11T20:14:20.988Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Resources.fr.resx",
+              "DocumentMoniker": "C:\\Users\\LabUser\\Desktop\\scheduler\\Scheduler\\resources\\Resources.fr.resx",
+              "RelativeDocumentMoniker": "resources\\Resources.fr.resx",
+              "ToolTip": "C:\\Users\\LabUser\\Desktop\\scheduler\\Scheduler\\resources\\Resources.fr.resx",
+              "RelativeToolTip": "resources\\Resources.fr.resx",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001005|",
+              "WhenOpened": "2025-03-11T20:03:33.354Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Resources.resx",
+              "DocumentMoniker": "C:\\Users\\LabUser\\Desktop\\scheduler\\Scheduler\\resources\\Resources.resx",
+              "RelativeDocumentMoniker": "resources\\Resources.resx",
+              "ToolTip": "C:\\Users\\LabUser\\Desktop\\scheduler\\Scheduler\\resources\\Resources.resx",
+              "RelativeToolTip": "resources\\Resources.resx",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001005|",
+              "WhenOpened": "2025-03-11T20:03:02.889Z",
+              "EditorCaption": ""
             }
           ]
         }
