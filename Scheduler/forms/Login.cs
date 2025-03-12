@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 namespace Scheduler{
     public partial class Form_login : Form {
         public Form_login() {
@@ -5,12 +7,24 @@ namespace Scheduler{
         }
 
         private void button_login_Click(object sender, EventArgs e) {
-            MessageBox.Show(
-                Properties.Resources.login_error_msg, 
-                Properties.Resources.error_label, 
-                MessageBoxButtons.OK, 
-                MessageBoxIcon.Error
+
+            bool loginSuccess = DataAccessLayer.Login(
+                textBox_username.Text,
+                textBox_password.Text
             );
+
+            if (loginSuccess) {
+                Debug.WriteLine("Login success!");
+            } else {
+                MessageBox.Show(
+                    Properties.Resources.login_error_msg,
+                    Properties.Resources.error_label,
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+
+            
         }
     }
 }
