@@ -10,8 +10,7 @@ namespace Scheduler{
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            string language = CultureInfo.CurrentUICulture.Name;
-            Application.Run(new Form_login(language));
+            Application.Run(new Form_login());
         }
     }
 }

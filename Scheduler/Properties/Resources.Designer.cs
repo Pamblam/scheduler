@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Scheduler.resources {
+namespace Scheduler.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Scheduler.resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Scheduler.resources.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Scheduler.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,29 +61,20 @@ namespace Scheduler.resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Scheduler | Login.
+        ///   Looks up a localized string similar to Error.
         /// </summary>
-        internal static string login_titlebar {
+        internal static string error_label {
             get {
-                return ResourceManager.GetString("login_titlebar", resourceCulture);
+                return ResourceManager.GetString("error_label", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Password.
+        ///   Looks up a localized string similar to The username and password do not match..
         /// </summary>
-        internal static string password_label {
+        internal static string login_error_msg {
             get {
-                return ResourceManager.GetString("password_label", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Username.
-        /// </summary>
-        internal static string username_label {
-            get {
-                return ResourceManager.GetString("username_label", resourceCulture);
+                return ResourceManager.GetString("login_error_msg", resourceCulture);
             }
         }
     }
