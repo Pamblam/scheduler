@@ -2,8 +2,11 @@ using System.Diagnostics;
 
 namespace Scheduler{
     public partial class Form_login : Form {
-        public Form_login() {
+        private MainScreen mainScreen;
+
+        public Form_login(MainScreen mainScreen) {
             InitializeComponent();
+            this.mainScreen = mainScreen;
         }
 
         private void button_login_Click(object sender, EventArgs e) {
@@ -14,7 +17,8 @@ namespace Scheduler{
             );
 
             if (loginSuccess) {
-                Debug.WriteLine("Login success!");
+                this.Close();
+                mainScreen.populateWindow();
             } else {
                 MessageBox.Show(
                     Properties.Resources.login_error_msg,

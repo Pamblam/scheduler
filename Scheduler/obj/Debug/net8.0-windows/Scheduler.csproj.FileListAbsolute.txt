@@ -39,3 +39,5 @@ C:\Users\LabUser\Desktop\scheduler\Scheduler\bin\Debug\net8.0-windows\runtimes\w
 C:\Users\LabUser\Desktop\scheduler\Scheduler\bin\Debug\net8.0-windows\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
 C:\Users\LabUser\Desktop\scheduler\Scheduler\obj\Debug\net8.0-windows\Scheduler.csproj.AssemblyReference.cache
 C:\Users\LabUser\Desktop\scheduler\Scheduler\obj\Debug\net8.0-windows\Scheduler.csproj.Up2Date
+C:\Users\LabUser\Desktop\scheduler\Scheduler\obj\Debug\net8.0-windows\Scheduler.MainScreen.resources
+C:\Users\LabUser\Desktop\scheduler\Scheduler\obj\Debug\net8.0-windows\Scheduler.CustomerForm.resources
