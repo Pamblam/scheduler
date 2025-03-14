@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Scheduler.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -38,6 +39,10 @@ namespace Scheduler {
             initNewApptBtn();
         }
 
+        public void populateSchedulesGrid() {
+            // todo
+        }
+
         private void DataGridView_customers_SelectionChanged(object sender, EventArgs e) {
             if (dataGridView_customers.SelectedRows.Count > 0) {
                 var selectedRow = dataGridView_customers.SelectedRows[0];
@@ -59,12 +64,18 @@ namespace Scheduler {
         }
 
         private void DataGridView_customers_CellDoubleClick(object sender, DataGridViewCellEventArgs e) {
-            if (e.RowIndex >= 0) { 
+            if (e.RowIndex >= 0) {
                 DataGridViewRow row = dataGridView_customers.Rows[e.RowIndex];
                 selectedCustomerId = (int)row.Cells[0].Value;
                 CustomerForm customerForm = new CustomerForm(this, selectedCustomerId);
                 customerForm.ShowDialog();
             }
         }
+
+        private void button_appt_Click(object sender, EventArgs e) {
+            AppointmentForm apptForm = new AppointmentForm(this, null, selectedCustomerId.Value);
+            apptForm.ShowDialog();
+        }
+
     }
 }

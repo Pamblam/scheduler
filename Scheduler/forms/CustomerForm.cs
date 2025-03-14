@@ -35,9 +35,11 @@ namespace Scheduler {
             if (null == customerId) {
                 this.Text = "Create New Customer";
                 button_appt.Visible = false;
+                button_delete.Visible = false;
             } else {
                 this.Text = "View/Edit Customer";
                 button_appt.Visible = true;
+                button_delete.Visible = true;
 
                 customer = DataAccessLayer.GetCustomerById(customerId.Value);
                 if (customer == null) {
@@ -200,6 +202,34 @@ namespace Scheduler {
             }
 
             return true;
+        }
+
+        private void button_close_Click(object sender, EventArgs e) {
+            Close();
+        }
+
+        private void button_delete_Click(object sender, EventArgs e) {
+            DialogResult result = MessageBox.Show(
+                "Are you sure you want to permanently delete this customer and all of their appointments?",
+                "Danger",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Exclamation
+            );
+            if (result == DialogResult.Yes) {
+                if (DataAccessLayer.HasAppointmentsWithOtherUsers(customerId.Value)) {
+                    showError("You cannot delete customers that have appointments with other users. Have the other usres delete their appointments and then try again.");
+                    return;
+                }
+                DataAccessLayer.DeleteCustomer(customerId.Value);
+                mainScreen.populateCustomersGrid();
+                Close();
+                showSuccess("Customer Deleted!");
+            }
+        }
+
+        private void button_appt_Click(object sender, EventArgs e) {
+            AppointmentForm apptForm = new AppointmentForm(mainScreen, null, customerId.Value);
+            apptForm.ShowDialog();
         }
     }
 }

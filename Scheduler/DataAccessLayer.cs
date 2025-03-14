@@ -3,15 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Diagnostics;
 using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Microsoft.VisualBasic.ApplicationServices;
 using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI.Common;
+using Org.BouncyCastle.Pqc.Crypto.Cmce;
 using Scheduler.Models;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using static Google.Protobuf.Reflection.SourceCodeInfo.Types;
 
 namespace Scheduler {
     internal class DataAccessLayer {
@@ -344,7 +349,9 @@ namespace Scheduler {
                 new MySqlParameter("@lastUpdateBy", MySqlDbType.VarChar){ Value = User.userName },
                 new MySqlParameter("@customerId", MySqlDbType.Int32){ Value = customerId }
             };
-            return RunSQLCommand(cmd, cmd_parameters);
+            bool success = RunSQLCommand(cmd, cmd_parameters);
+            DeleteOrphanedRecords();
+            return success;
         }
 
         public static bool Login(string username, string password) {
@@ -377,10 +384,231 @@ namespace Scheduler {
             return false;
         }
 
+        public static Appointment? GetAppointmentById(int appointmentId) {
+            string query = "SELECT * FROM appointment WHERE appointmentId = @appointmentId";
+            MySqlParameter[] parameters = new MySqlParameter[] {
+                new MySqlParameter("@appointmentId", MySqlDbType.VarChar){ Value = appointmentId }
+            };
+            DataTable data = RunSQLQuery(query, parameters);
+
+            if (data.Rows.Count > 0) {
+                DataRow row = data.Rows[0];
+
+                DateTime createDate = row.Field<DateTime>("createDate");
+                DateTime lastUpdate = row.Field<DateTime>("lastUpdate");
+                DateTime start = row.Field<DateTime>("start");
+                DateTime end = row.Field<DateTime>("end");
+
+                return new Appointment(
+                    (int)row["appointmentId"],
+                    GetCustomerById((int)row["customerId"]),
+                    GetUserById((int)row["customerId"]),
+                    (string)row["title"],
+                    (string)row["description"],
+                    (string)row["location"],
+                    (string)row["contact"],
+                    (string)row["type"],
+                    DateTime.SpecifyKind(start, DateTimeKind.Utc),
+                    DateTime.SpecifyKind(end, DateTimeKind.Utc),
+                    DateTime.SpecifyKind(createDate, DateTimeKind.Utc),
+                    (string)row["createdBy"],
+                    DateTime.SpecifyKind(lastUpdate, DateTimeKind.Utc),
+                    (string)row["lastUpdateBy"]
+                );
+            }
+
+            return null;
+        }
+
+        public static Scheduler.Models.User? GetUserById(int userId) {
+            string query = "SELECT * FROM user WHERE userId = @userId";
+            MySqlParameter[] parameters = new MySqlParameter[] {
+                new MySqlParameter("@userId", MySqlDbType.VarChar){ Value = userId }
+            };
+            DataTable userData = RunSQLQuery(query, parameters);
+
+            if (userData.Rows.Count > 0) {
+                DataRow row = userData.Rows[0];
+                DateTime createDate = row.Field<DateTime>("createDate");
+                DateTime lastUpdate = row.Field<DateTime>("lastUpdate");
+
+                return new Scheduler.Models.User(
+                    (int)row["userId"],
+                    (string)row["userName"],
+                    Convert.ToBoolean(row["active"]),
+                    DateTime.SpecifyKind(createDate, DateTimeKind.Utc),
+                    (string)row["createdBy"],
+                    DateTime.SpecifyKind(lastUpdate, DateTimeKind.Utc),
+                    (string)row["lastUpdateBy"]
+                );
+            }
+
+            return null;
+        }
+
         public static DataTable GetCustomerDataTable() {
             string query = "SELECT c.customerId, c.customerName, case c.active when 1 then '✓' else '〤' end as active, trim(concat(a.address, ' ', a.address2)) address, concat(i.city, ', ', o.country) city FROM client_schedule.customer c LEFT JOIN address a on a.addressId = c.addressId LEFT JOIN city i on i.cityId = a.cityId left join country o on o.countryId = i.countryId order by c.lastUpdate desc";
             return RunSQLQuery(query, null);
         }
 
+        public static bool HasAppointmentsWithOtherUsers(int customerId) {
+            string query = "SELECT appointmentId FROM client_schedule.appointment where customerId = @customerId and userId != @userId";
+            MySqlParameter[] parameters = new MySqlParameter[] {
+                new MySqlParameter("@customerId", MySqlDbType.Int32){ Value = customerId },
+                new MySqlParameter("@userId", MySqlDbType.Int32){ Value = User.userId }
+            };
+            DataTable res = RunSQLQuery(query, parameters);
+            return res.Rows.Count > 0;
+        }
+
+        public static void DeleteCustomer(int cusomterId) {
+            string cmd = "DELETE FROM customer WHERE customerId = @cusomterId";
+            MySqlParameter[] parameters = new MySqlParameter[] {
+                new MySqlParameter("@cusomterId", MySqlDbType.Int32){ Value = cusomterId }
+            };
+            RunSQLCommand(cmd, parameters);
+
+            string cmd2 = "DELETE FROM appointment WHERE customerId = @cusomterId";
+            MySqlParameter[] parameters2 = new MySqlParameter[] {
+                new MySqlParameter("@cusomterId", MySqlDbType.Int32){ Value = cusomterId }
+            };
+            RunSQLCommand(cmd2, parameters2);
+
+            DeleteOrphanedRecords();
+        }
+
+        // Delete anything that isn't being used to keep the database clean.
+        public static void DeleteOrphanedRecords() {
+            DeleteOrphanedAddresses();
+            DeleteOrphanedCities();
+            DeleteOrphanedCountries();
+        }
+
+        public static void DeleteOrphanedAddresses() {
+            string cmd = "DELETE FROM address WHERE addressId = @addressId";
+            string query = "SELECT addressId FROM address WHERE addressId NOT IN (SELECT DISTINCT addressId FROM customer)";
+            DataTable dt = RunSQLQuery(query, null);
+            foreach (DataRow row in dt.Rows) {
+                int id = Convert.ToInt32(row["addressId"]);
+                MySqlParameter[] parameters = new MySqlParameter[] {
+                    new MySqlParameter("@addressId", MySqlDbType.Int32){ Value = id }
+                };
+                bool success = RunSQLCommand(cmd, parameters);
+                Debug.WriteLine(success ? $"success: addressId: {id}" : $"error: addressId: {id}");
+            }
+        }
+
+        public static void DeleteOrphanedCities() {
+            string cmd = "DELETE FROM city WHERE cityId = @cityId";
+            string query = "SELECT cityId FROM city WHERE cityId NOT IN (SELECT DISTINCT cityId FROM address)";
+            DataTable dt = RunSQLQuery(query, null);
+            foreach (DataRow row in dt.Rows) {
+                int id = Convert.ToInt32(row["cityId"]);
+                MySqlParameter[] parameters = new MySqlParameter[] {
+                    new MySqlParameter("@cityId", MySqlDbType.Int32){ Value = id }
+                };
+                RunSQLCommand(cmd, parameters);
+            }
+        }
+
+        public static void DeleteOrphanedCountries() {
+            string cmd = "DELETE FROM country WHERE countryId = @countryId";
+            string query = "SELECT countryId FROM country WHERE countryId NOT IN (SELECT DISTINCT countryId FROM country)";
+            DataTable dt = RunSQLQuery(query, null);
+            foreach (DataRow row in dt.Rows) {
+                int id = Convert.ToInt32(row["countryId"]);
+                MySqlParameter[] parameters = new MySqlParameter[] {
+                    new MySqlParameter("@countryId", MySqlDbType.Int32){ Value = id }
+                };
+                RunSQLCommand(cmd, parameters);
+            }
+        }
+
+        public static bool DeleteAppointment(int appointmentId) {
+            string cmd = "DELETE FROM appointment WHERE appointmentId = @appointmentId";
+            MySqlParameter[] parameters = new MySqlParameter[] {
+                new MySqlParameter("@appointmentId", MySqlDbType.Int32){ Value = appointmentId }
+            };
+            return RunSQLCommand(cmd, parameters);
+        }
+
+        public static bool HasOverlappingAppointment(int customerId, int userId, DateTime startUtc, DateTime endUtc, int? appointmentId) {
+            int matches = 0;
+            string query = "SELECT COUNT(*) FROM appointment WHERE (customerId = @customerId OR userId = @userId) AND (@startTimeUtc < end AND @endTimeUtc > start)";
+            
+            if (appointmentId != null) {
+                query += " AND appointmentId != @appointmentId";
+                MySqlParameter[] parameters = {
+                    new MySqlParameter("@customerId", MySqlDbType.Int32){ Value = customerId },
+                    new MySqlParameter("@userId", MySqlDbType.Int32){ Value = customerId },
+                    new MySqlParameter("@startTimeUtc", MySqlDbType.DateTime){ Value = startUtc },
+                    new MySqlParameter("@endTimeUtc", MySqlDbType.DateTime){ Value = endUtc },
+                    new MySqlParameter("@appointmentId", MySqlDbType.Int32){ Value = appointmentId }
+                };
+
+                DataTable result = RunSQLQuery(query, parameters);
+
+                if (result.Rows.Count > 0) {
+                    matches = Convert.ToInt32(result.Rows[0][0]);
+                }
+
+            } else {
+                MySqlParameter[] parameters = {
+                    new MySqlParameter("@customerId", MySqlDbType.Int32){ Value = customerId },
+                    new MySqlParameter("@userId", MySqlDbType.Int32){ Value = customerId },
+                    new MySqlParameter("@startTimeUtc", MySqlDbType.DateTime){ Value = startUtc },
+                    new MySqlParameter("@endTimeUtc", MySqlDbType.DateTime){ Value = endUtc }
+                };
+
+                DataTable result = RunSQLQuery(query, parameters);
+
+                if (result.Rows.Count > 0) {
+                    matches = Convert.ToInt32(result.Rows[0][0]);
+                }
+            }
+
+            return matches > 0;
+        }
+
+        public static bool UpdateAppointment(int appointmentId, string apptType, DateTime startTime, DateTime endTime) {
+            string cmd = "UPDATE appointment SET apptType = @apptType, start = @startTime, end = @endTime, lastUpdateBy = @lastUpdateBy WHERE appointmentId = @appointmentId";
+            MySqlParameter[] cmd_parameters = new MySqlParameter[] {
+                new MySqlParameter("@apptType", MySqlDbType.Text){ Value = apptType },
+                new MySqlParameter("@startTime", MySqlDbType.DateTime){ Value = startTime },
+                new MySqlParameter("@endTime", MySqlDbType.DateTime){ Value = endTime },
+                new MySqlParameter("@lastUpdateBy", MySqlDbType.VarChar){ Value = User.userName },
+                new MySqlParameter("@appointmentId", MySqlDbType.Int32){ Value = appointmentId }
+            };
+            return RunSQLCommand(cmd, cmd_parameters);
+        }
+
+        public static int? CreateAppointment(int customerId, int userId, string type, DateTime startTime, DateTime endTime) {
+            string cmd = "INSERT INTO appointment " +
+                "(customerId, userId, title, description, location, contact, type, url, start, end, createDate, createdBy, lastUpdateBy) VALUES " +
+                "(@customerId, @userId, @title, @description, @location, @contact, @type, @url, @start, @end, NOW(), @createdBy, @lastUpdateBy)";
+
+            MySqlParameter[] cmd_parameters = new MySqlParameter[] {
+                new MySqlParameter("@customerId", MySqlDbType.Int32){ Value = customerId },
+                new MySqlParameter("@userId", MySqlDbType.Int32){ Value = userId },
+                new MySqlParameter("@title", MySqlDbType.VarChar){ Value = "not needed" },
+                new MySqlParameter("@description", MySqlDbType.Text){ Value = "not needed" },
+                new MySqlParameter("@location", MySqlDbType.Text){ Value = "not needed" },
+                new MySqlParameter("@contact", MySqlDbType.Text){ Value = "not needed" },
+                new MySqlParameter("@type", MySqlDbType.Text){ Value = "not needed" },
+                new MySqlParameter("@url", MySqlDbType.VarChar){ Value = "not needed" },
+                new MySqlParameter("@start", MySqlDbType.DateTime){ Value = startTime },
+                new MySqlParameter("@end", MySqlDbType.DateTime){ Value = endTime },
+                new MySqlParameter("@createdBy", MySqlDbType.VarChar){ Value = User.userName },
+                new MySqlParameter("@lastUpdateBy", MySqlDbType.VarChar){ Value = User.userName }
+            };
+            bool success = RunSQLCommand(cmd, cmd_parameters);
+            DataTable res = RunSQLQuery("SELECT MAX(appointmentId) FROM appointment", null);
+
+            if (res.Rows.Count > 0) {
+                return Convert.ToInt32(res.Rows[0][0]);
+            }
+
+            return null;
+        } 
     }
 }

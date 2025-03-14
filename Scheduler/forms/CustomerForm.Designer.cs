@@ -40,6 +40,8 @@
             textBox_phone = new TextBox();
             button_save = new Button();
             button_appt = new Button();
+            button_delete = new Button();
+            button_close = new Button();
             SuspendLayout();
             // 
             // label_name
@@ -168,7 +170,7 @@
             // 
             // button_save
             // 
-            button_save.Location = new Point(161, 240);
+            button_save.Location = new Point(161, 273);
             button_save.Name = "button_save";
             button_save.Size = new Size(159, 23);
             button_save.TabIndex = 15;
@@ -184,12 +186,35 @@
             button_appt.TabIndex = 16;
             button_appt.Text = "Create Appointment";
             button_appt.UseVisualStyleBackColor = true;
+            button_appt.Click += button_appt_Click;
+            // 
+            // button_delete
+            // 
+            button_delete.Location = new Point(161, 240);
+            button_delete.Name = "button_delete";
+            button_delete.Size = new Size(159, 23);
+            button_delete.TabIndex = 17;
+            button_delete.Text = "Delete Customer";
+            button_delete.UseVisualStyleBackColor = true;
+            button_delete.Click += button_delete_Click;
+            // 
+            // button_close
+            // 
+            button_close.Location = new Point(12, 273);
+            button_close.Name = "button_close";
+            button_close.Size = new Size(143, 23);
+            button_close.TabIndex = 18;
+            button_close.Text = "Close";
+            button_close.UseVisualStyleBackColor = true;
+            button_close.Click += button_close_Click;
             // 
             // CustomerForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(332, 275);
+            ClientSize = new Size(332, 308);
+            Controls.Add(button_close);
+            Controls.Add(button_delete);
             Controls.Add(button_appt);
             Controls.Add(button_save);
             Controls.Add(textBox_phone);
@@ -234,5 +259,7 @@
         private TextBox textBox_phone;
         private Button button_save;
         private Button button_appt;
+        private Button button_delete;
+        private Button button_close;
     }
 }

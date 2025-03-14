@@ -163,6 +163,7 @@
             button_appt.Text = "Make Appointment";
             button_appt.UseVisualStyleBackColor = true;
             button_appt.Visible = false;
+            button_appt.Click += button_appt_Click;
             // 
             // MainScreen
             // 
