@@ -35,6 +35,7 @@
             dateTimePicker_appts = new DateTimePicker();
             comboBox_appts_filter = new ComboBox();
             label_appts_filter = new Label();
+            button_appt = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView_customers).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridView_appts).BeginInit();
             SuspendLayout();
@@ -51,11 +52,19 @@
             // 
             // dataGridView_customers
             // 
+            dataGridView_customers.AllowUserToAddRows = false;
+            dataGridView_customers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView_customers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView_customers.Location = new Point(354, 38);
+            dataGridView_customers.MultiSelect = false;
             dataGridView_customers.Name = "dataGridView_customers";
+            dataGridView_customers.ReadOnly = true;
+            dataGridView_customers.RowHeadersVisible = false;
+            dataGridView_customers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView_customers.Size = new Size(604, 235);
             dataGridView_customers.TabIndex = 1;
+            dataGridView_customers.CellDoubleClick += DataGridView_customers_CellDoubleClick;
+            dataGridView_customers.SelectionChanged += DataGridView_customers_SelectionChanged;
             // 
             // button_add_customer
             // 
@@ -80,9 +89,9 @@
             label_customers.AutoSize = true;
             label_customers.Location = new Point(354, 13);
             label_customers.Name = "label_customers";
-            label_customers.Size = new Size(64, 15);
+            label_customers.Size = new Size(237, 15);
             label_customers.TabIndex = 5;
-            label_customers.Text = "Customers";
+            label_customers.Text = "Customers | Double click customer to edit ↓";
             // 
             // label_appointments
             // 
@@ -145,11 +154,22 @@
             label_appts_filter.TabIndex = 12;
             label_appts_filter.Text = "Showing Appointments for...";
             // 
+            // button_appt
+            // 
+            button_appt.Location = new Point(826, 299);
+            button_appt.Name = "button_appt";
+            button_appt.Size = new Size(132, 23);
+            button_appt.TabIndex = 13;
+            button_appt.Text = "Make Appointment";
+            button_appt.UseVisualStyleBackColor = true;
+            button_appt.Visible = false;
+            // 
             // MainScreen
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(970, 575);
+            Controls.Add(button_appt);
             Controls.Add(label_appts_filter);
             Controls.Add(comboBox_appts_filter);
             Controls.Add(dateTimePicker_appts);
@@ -172,6 +192,10 @@
             PerformLayout();
         }
 
+        private void DataGridView_customers_CellClick(object sender, DataGridViewCellEventArgs e) {
+            throw new NotImplementedException();
+        }
+
         #endregion
 
         private Label label_username;
@@ -186,5 +210,6 @@
         private DateTimePicker dateTimePicker_appts;
         private ComboBox comboBox_appts_filter;
         private Label label_appts_filter;
+        private Button button_appt;
     }
 }

@@ -22,7 +22,7 @@ namespace Scheduler {
             .ConnectionStrings["localConnection"]
             .ConnectionString;
 
-        private static DataTable RunSQLQuery(string query, MySqlParameter[] parameters) {
+        private static DataTable RunSQLQuery(string query, MySqlParameter[]? parameters) {
             DataTable results = new DataTable();
             MySqlConnection conn = null;
             MySqlCommand cmd = null;
@@ -375,6 +375,11 @@ namespace Scheduler {
             }
 
             return false;
+        }
+
+        public static DataTable GetCustomerDataTable() {
+            string query = "SELECT c.customerId, c.customerName, case c.active when 1 then '✓' else '〤' end as active, trim(concat(a.address, ' ', a.address2)) address, concat(i.city, ', ', o.country) city FROM client_schedule.customer c LEFT JOIN address a on a.addressId = c.addressId LEFT JOIN city i on i.cityId = a.cityId left join country o on o.countryId = i.countryId order by c.lastUpdate desc";
+            return RunSQLQuery(query, null);
         }
 
     }

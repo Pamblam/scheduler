@@ -112,6 +112,7 @@ namespace Scheduler {
                 bool success = DataAccessLayer.UpdateCustomer(customerId.Value, name, addressId.Value, active);
                 if (success) {
                     showSuccess("Customer record updated!");
+                    mainScreen.populateCustomersGrid();
                 } else {
                     showError("There was an error updating the customer record.");
                 }
@@ -120,6 +121,7 @@ namespace Scheduler {
                 if (customerId != null) {
                     showSuccess("Customer record created!");
                     initializeFormType();
+                    mainScreen.populateCustomersGrid();
                 } else {
                     showError("There was an error creating the customer record.");
                 }
