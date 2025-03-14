@@ -1,18 +1,18 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\LabUser\\Desktop\\scheduler\\Scheduler\\",
+  "WorkspaceRootPath": "C:\\Users\\Adelphia\\Desktop\\dotnet\\scheduler\\Scheduler\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D2E193AA-603D-41DB-B0F1-FFC7F94EB97D}|Scheduler.csproj|c:\\users\\labuser\\desktop\\scheduler\\scheduler\\forms\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D2E193AA-603D-41DB-B0F1-FFC7F94EB97D}|Scheduler.csproj|solutionrelative:forms\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D2E193AA-603D-41DB-B0F1-FFC7F94EB97D}|Scheduler.csproj|c:\\users\\adelphia\\desktop\\dotnet\\scheduler\\scheduler\\forms\\mainscreen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{D2E193AA-603D-41DB-B0F1-FFC7F94EB97D}|Scheduler.csproj|solutionrelative:forms\\mainscreen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D2E193AA-603D-41DB-B0F1-FFC7F94EB97D}|Scheduler.csproj|c:\\users\\labuser\\desktop\\scheduler\\scheduler\\dataaccesslayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D2E193AA-603D-41DB-B0F1-FFC7F94EB97D}|Scheduler.csproj|solutionrelative:dataaccesslayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D2E193AA-603D-41DB-B0F1-FFC7F94EB97D}|Scheduler.csproj|c:\\users\\adelphia\\desktop\\dotnet\\scheduler\\scheduler\\forms\\mainscreen.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D2E193AA-603D-41DB-B0F1-FFC7F94EB97D}|Scheduler.csproj|solutionrelative:forms\\mainscreen.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D2E193AA-603D-41DB-B0F1-FFC7F94EB97D}|Scheduler.csproj|c:\\users\\labuser\\desktop\\scheduler\\scheduler\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D2E193AA-603D-41DB-B0F1-FFC7F94EB97D}|Scheduler.csproj|solutionrelative:models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D2E193AA-603D-41DB-B0F1-FFC7F94EB97D}|Scheduler.csproj|c:\\users\\adelphia\\desktop\\dotnet\\scheduler\\scheduler\\forms\\mainscreen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D2E193AA-603D-41DB-B0F1-FFC7F94EB97D}|Scheduler.csproj|solutionrelative:forms\\mainscreen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,46 +22,44 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "User.cs",
-              "DocumentMoniker": "C:\\Users\\LabUser\\Desktop\\scheduler\\Scheduler\\Models\\User.cs",
-              "RelativeDocumentMoniker": "Models\\User.cs",
-              "ToolTip": "C:\\Users\\LabUser\\Desktop\\scheduler\\Scheduler\\Models\\User.cs",
-              "RelativeToolTip": "Models\\User.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-12T16:37:21.39Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Login.cs",
-              "DocumentMoniker": "C:\\Users\\LabUser\\Desktop\\scheduler\\Scheduler\\forms\\Login.cs",
-              "RelativeDocumentMoniker": "forms\\Login.cs",
-              "ToolTip": "C:\\Users\\LabUser\\Desktop\\scheduler\\Scheduler\\forms\\Login.cs",
-              "RelativeToolTip": "forms\\Login.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAVAAAA",
+              "Title": "MainScreen.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\Adelphia\\Desktop\\dotnet\\scheduler\\Scheduler\\forms\\MainScreen.cs",
+              "RelativeDocumentMoniker": "forms\\MainScreen.cs",
+              "ToolTip": "C:\\Users\\Adelphia\\Desktop\\dotnet\\scheduler\\Scheduler\\forms\\MainScreen.cs [Design]",
+              "RelativeToolTip": "forms\\MainScreen.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-12T17:50:59.539Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-14T03:24:39.943Z",
+              "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "DataAccessLayer.cs",
-              "DocumentMoniker": "C:\\Users\\LabUser\\Desktop\\scheduler\\Scheduler\\DataAccessLayer.cs",
-              "RelativeDocumentMoniker": "DataAccessLayer.cs",
-              "ToolTip": "C:\\Users\\LabUser\\Desktop\\scheduler\\Scheduler\\DataAccessLayer.cs",
-              "RelativeToolTip": "DataAccessLayer.cs",
-              "ViewState": "AQIAAEEAAAAAAAAAAADwv1IAAAA0AAAA",
+              "Title": "MainScreen.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\Adelphia\\Desktop\\dotnet\\scheduler\\Scheduler\\forms\\MainScreen.Designer.cs",
+              "RelativeDocumentMoniker": "forms\\MainScreen.Designer.cs",
+              "ToolTip": "C:\\Users\\Adelphia\\Desktop\\dotnet\\scheduler\\Scheduler\\forms\\MainScreen.Designer.cs",
+              "RelativeToolTip": "forms\\MainScreen.Designer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-12T15:09:42.47Z",
+              "WhenOpened": "2025-03-14T03:24:37.965Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MainScreen.cs",
+              "DocumentMoniker": "C:\\Users\\Adelphia\\Desktop\\dotnet\\scheduler\\Scheduler\\forms\\MainScreen.cs",
+              "RelativeDocumentMoniker": "forms\\MainScreen.cs",
+              "ToolTip": "C:\\Users\\Adelphia\\Desktop\\dotnet\\scheduler\\Scheduler\\forms\\MainScreen.cs",
+              "RelativeToolTip": "forms\\MainScreen.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAABCAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-13T23:31:04.869Z",
               "EditorCaption": ""
             }
           ]

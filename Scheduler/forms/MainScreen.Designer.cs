@@ -27,7 +27,6 @@
             dataGridView_customers = new DataGridView();
             button_add_customer = new Button();
             dataGridView_appts = new DataGridView();
-            button_add_appt = new Button();
             label_customers = new Label();
             label_appointments = new Label();
             button_report1 = new Button();
@@ -76,15 +75,6 @@
             dataGridView_appts.Size = new Size(604, 235);
             dataGridView_appts.TabIndex = 3;
             // 
-            // button_add_appt
-            // 
-            button_add_appt.Location = new Point(826, 299);
-            button_add_appt.Name = "button_add_appt";
-            button_add_appt.Size = new Size(132, 23);
-            button_add_appt.TabIndex = 4;
-            button_add_appt.Text = "Create Appointment";
-            button_add_appt.UseVisualStyleBackColor = true;
-            // 
             // label_customers
             // 
             label_customers.AutoSize = true;
@@ -99,9 +89,9 @@
             label_appointments.AutoSize = true;
             label_appointments.Location = new Point(354, 303);
             label_appointments.Name = "label_appointments";
-            label_appointments.Size = new Size(83, 15);
+            label_appointments.Size = new Size(343, 15);
             label_appointments.TabIndex = 6;
-            label_appointments.Text = "Appointments";
+            label_appointments.Text = "Appointments (Select a Customer to make a new Appointment)";
             // 
             // button_report1
             // 
@@ -168,7 +158,6 @@
             Controls.Add(button_report1);
             Controls.Add(label_appointments);
             Controls.Add(label_customers);
-            Controls.Add(button_add_appt);
             Controls.Add(dataGridView_appts);
             Controls.Add(button_add_customer);
             Controls.Add(dataGridView_customers);
@@ -189,7 +178,6 @@
         private DataGridView dataGridView_customers;
         private Button button_add_customer;
         private DataGridView dataGridView_appts;
-        private Button button_add_appt;
         private Label label_customers;
         private Label label_appointments;
         private Button button_report1;

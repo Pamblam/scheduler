@@ -174,6 +174,7 @@
             button_save.TabIndex = 15;
             button_save.Text = "Save";
             button_save.UseVisualStyleBackColor = true;
+            button_save.Click += button_save_Click;
             // 
             // button_appt
             // 
