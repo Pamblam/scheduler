@@ -124,15 +124,17 @@ namespace Scheduler {
                     showError("There was an error updating this appointment.");
                 } else {
                     showSuccess("Appointment updated.");
+                    mainScreen.populateSchedulesGrid();
                 }
             } else {
                 int? aptId = DataAccessLayer.CreateAppointment(customerId.Value, user.userId, apptType, startTime, endTime);
-                if (aptId != null) {
+                if (aptId == null) {
                     showError("There was an error creating this appointment.");
                 } else {
                     showSuccess("Appointment created.");
                     this.appointmentId = aptId;
                     populateForm();
+                    mainScreen.populateSchedulesGrid();
                 }
             }
         }
@@ -159,6 +161,11 @@ namespace Scheduler {
 
             if (startET.Date != endET.Date) {
                 showError("Appointments must start and end on the same day.");
+                return false;
+            }
+
+            if (startET.DayOfWeek == DayOfWeek.Saturday || startET.DayOfWeek == DayOfWeek.Sunday) {
+                showError("Appointments must not be scheduled for weekends.");
                 return false;
             }
 

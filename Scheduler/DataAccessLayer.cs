@@ -13,6 +13,7 @@ using System.Xml.Linq;
 using Microsoft.VisualBasic.ApplicationServices;
 using MySql.Data.MySqlClient;
 using MySqlX.XDevAPI.Common;
+using MySqlX.XDevAPI.Relational;
 using Org.BouncyCastle.Pqc.Crypto.Cmce;
 using Scheduler.Models;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
@@ -89,7 +90,8 @@ namespace Scheduler {
  
             } catch (Exception ex) {
 
-                return false;
+                throw new Exception($"Query Failed: {ex.Message}");
+                // return false;
 
             } finally {
 
@@ -402,7 +404,7 @@ namespace Scheduler {
                 return new Appointment(
                     (int)row["appointmentId"],
                     GetCustomerById((int)row["customerId"]),
-                    GetUserById((int)row["customerId"]),
+                    GetUserById((int)row["userId"]),
                     (string)row["title"],
                     (string)row["description"],
                     (string)row["location"],
@@ -449,6 +451,42 @@ namespace Scheduler {
         public static DataTable GetCustomerDataTable() {
             string query = "SELECT c.customerId, c.customerName, case c.active when 1 then '✓' else '〤' end as active, trim(concat(a.address, ' ', a.address2)) address, concat(i.city, ', ', o.country) city FROM client_schedule.customer c LEFT JOIN address a on a.addressId = c.addressId LEFT JOIN city i on i.cityId = a.cityId left join country o on o.countryId = i.countryId order by c.lastUpdate desc";
             return RunSQLQuery(query, null);
+        }
+
+        public static DataTable GetAllAppointmentsDataTable() {
+            string query = "SELECT a.appointmentId, c.customerName, u.userName, a.type, a.start, a.end FROM client_schedule.appointment a left join customer c on c.customerId = a.customerId left join user u on u.userId = u.userId order by start desc";
+            DataTable res = RunSQLQuery(query, null);
+            DataTableToLocalTime(res);
+            return res;
+        }
+
+        public static DataTable GetAllAppointmentsThisMonthDataTable() {
+            string query = "SELECT a.appointmentId, c.customerName, u.userName, a.type, a.start, a.end FROM client_schedule.appointment a left join customer c on c.customerId = a.customerId left join user u on u.userId = u.userId WHERE YEAR(a.start) = YEAR(CURRENT_DATE()) AND MONTH(a.start) = MONTH(CURRENT_DATE()) order by a.start desc";
+            DataTable res = RunSQLQuery(query, null);
+            DataTableToLocalTime(res);
+            return res;
+        }
+
+        public static DataTable GetAllAppointmentsThisWeekDataTable() {
+            string query = "SELECT a.appointmentId, c.customerName, u.userName, a.type, a.start, a.end FROM client_schedule.appointment a left join customer c on c.customerId = a.customerId left join user u on u.userId = u.userId WHERE YEARWEEK(a.start, 0) = YEARWEEK(CURRENT_DATE(), 0) order by a.start desc";
+            DataTable res = RunSQLQuery(query, null);
+            DataTableToLocalTime(res);
+            return res;
+        }
+
+        public static DataTable GetAllAppointmentsForDateDataTable(DateTime selectedDate) {
+            DateTime startOfDay = selectedDate.Date;
+            DateTime endOfDay = selectedDate.Date.AddDays(1);
+            Debug.WriteLine($"Date selected: {startOfDay}");
+
+            string query = "SELECT a.appointmentId, c.customerName, u.userName, a.type, a.start, a.end FROM client_schedule.appointment a left join customer c on c.customerId = a.customerId left join user u on u.userId = u.userId WHERE a.start >= @startOfDay AND a.start < @endOfDay order by a.start desc";
+            MySqlParameter[] parameters = new MySqlParameter[] {
+                new MySqlParameter("@startOfDay", MySqlDbType.DateTime){ Value = startOfDay },
+                new MySqlParameter("@endOfDay", MySqlDbType.DateTime){ Value = endOfDay }
+            };
+            DataTable res = RunSQLQuery(query, parameters);
+            DataTableToLocalTime(res);
+            return res;
         }
 
         public static bool HasAppointmentsWithOtherUsers(int customerId) {
@@ -525,6 +563,7 @@ namespace Scheduler {
         }
 
         public static bool DeleteAppointment(int appointmentId) {
+            Debug.WriteLine($"Appt is {appointmentId}");
             string cmd = "DELETE FROM appointment WHERE appointmentId = @appointmentId";
             MySqlParameter[] parameters = new MySqlParameter[] {
                 new MySqlParameter("@appointmentId", MySqlDbType.Int32){ Value = appointmentId }
@@ -571,7 +610,7 @@ namespace Scheduler {
         }
 
         public static bool UpdateAppointment(int appointmentId, string apptType, DateTime startTime, DateTime endTime) {
-            string cmd = "UPDATE appointment SET apptType = @apptType, start = @startTime, end = @endTime, lastUpdateBy = @lastUpdateBy WHERE appointmentId = @appointmentId";
+            string cmd = "UPDATE appointment SET type = @apptType, start = @startTime, end = @endTime, lastUpdateBy = @lastUpdateBy WHERE appointmentId = @appointmentId";
             MySqlParameter[] cmd_parameters = new MySqlParameter[] {
                 new MySqlParameter("@apptType", MySqlDbType.Text){ Value = apptType },
                 new MySqlParameter("@startTime", MySqlDbType.DateTime){ Value = startTime },
@@ -594,7 +633,7 @@ namespace Scheduler {
                 new MySqlParameter("@description", MySqlDbType.Text){ Value = "not needed" },
                 new MySqlParameter("@location", MySqlDbType.Text){ Value = "not needed" },
                 new MySqlParameter("@contact", MySqlDbType.Text){ Value = "not needed" },
-                new MySqlParameter("@type", MySqlDbType.Text){ Value = "not needed" },
+                new MySqlParameter("@type", MySqlDbType.Text){ Value = type },
                 new MySqlParameter("@url", MySqlDbType.VarChar){ Value = "not needed" },
                 new MySqlParameter("@start", MySqlDbType.DateTime){ Value = startTime },
                 new MySqlParameter("@end", MySqlDbType.DateTime){ Value = endTime },
@@ -602,13 +641,35 @@ namespace Scheduler {
                 new MySqlParameter("@lastUpdateBy", MySqlDbType.VarChar){ Value = User.userName }
             };
             bool success = RunSQLCommand(cmd, cmd_parameters);
+
             DataTable res = RunSQLQuery("SELECT MAX(appointmentId) FROM appointment", null);
 
+            Debug.WriteLine($"rows: {res.Rows.Count}");
+            foreach (DataRow row in res.Rows) {
+                string rowData = string.Join(", ", row.ItemArray.Select(item => item?.ToString()));
+                Debug.WriteLine(rowData);
+            }
+
             if (res.Rows.Count > 0) {
-                return Convert.ToInt32(res.Rows[0][0]);
+                return (int)res.Rows[0][0];
             }
 
             return null;
         } 
+
+        // convert all DateTime references in the DataTable to local time.
+        private static void DataTableToLocalTime(DataTable table) {
+            foreach (DataRow row in table.Rows) {
+                for (int i = 0; i < table.Columns.Count; i++) {
+                    if (table.Columns[i].DataType == typeof(DateTime)) {
+                        if (row[i] != DBNull.Value) {
+                            DateTime utcDate = (DateTime)row[i];
+                            row[i] = utcDate.ToLocalTime();
+                        }
+                    }
+                }
+            }
+        }
+
     }
 }

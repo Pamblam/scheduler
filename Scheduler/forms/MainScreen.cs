@@ -26,6 +26,7 @@ namespace Scheduler {
             dateTimePicker_appts.Visible = false;
             label_username.Text = $"Logged in as: {DataAccessLayer.User.userName}";
             populateCustomersGrid();
+            populateSchedulesGrid();
         }
 
         private void button_add_customer_Click(object sender, EventArgs e) {
@@ -40,7 +41,26 @@ namespace Scheduler {
         }
 
         public void populateSchedulesGrid() {
-            // todo
+            var selectedValue = comboBox_appts_filter.SelectedItem;
+            if ("This Month" == selectedValue) {
+                DataTable appts = DataAccessLayer.GetAllAppointmentsThisMonthDataTable();
+                dataGridView_appts.DataSource = appts;
+            } else if ("This Week" == selectedValue) {
+                DataTable appts = DataAccessLayer.GetAllAppointmentsThisWeekDataTable();
+                dataGridView_appts.DataSource = appts;
+            } else if ("Chosen Day" == selectedValue) {
+                DateTime day = dateTimePicker_appts.Value.Date.ToUniversalTime();
+                DataTable appts = DataAccessLayer.GetAllAppointmentsForDateDataTable(day);
+                dataGridView_appts.DataSource = appts;
+            } else { 
+                // "All Appointments" == selectedValue or anything else if the user tries to type something in..
+                DataTable appts = DataAccessLayer.GetAllAppointmentsDataTable();
+                dataGridView_appts.DataSource = appts;
+            }
+        }
+
+        private void DateTimePicker_appts_ValueChanged(object sender, EventArgs e) {
+            populateSchedulesGrid();
         }
 
         private void DataGridView_customers_SelectionChanged(object sender, EventArgs e) {
@@ -72,10 +92,28 @@ namespace Scheduler {
             }
         }
 
+        private void DataGridView_appts_CellDoubleClick(object sender, DataGridViewCellEventArgs e) {
+            if (e.RowIndex >= 0) {
+                DataGridViewRow row = dataGridView_appts.Rows[e.RowIndex];
+                int aptId = (int)row.Cells[0].Value;
+                AppointmentForm apptForm = new AppointmentForm(this, aptId, null);
+                apptForm.ShowDialog();
+            }
+        }
+
         private void button_appt_Click(object sender, EventArgs e) {
             AppointmentForm apptForm = new AppointmentForm(this, null, selectedCustomerId.Value);
             apptForm.ShowDialog();
         }
 
+        private void comboBox_appts_filter_SelectedIndexChanged(object sender, EventArgs e) {
+            var selectedValue = comboBox_appts_filter.SelectedItem;
+            if ("Chosen Day" == selectedValue) {
+                dateTimePicker_appts.Visible = true;
+            } else {
+                dateTimePicker_appts.Visible = false;
+            }
+            populateSchedulesGrid();
+        }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Scheduler {
+﻿using System.Windows.Forms;
+
+namespace Scheduler {
     partial class MainScreen {
         /// <summary>
         /// Required designer variable.
@@ -78,11 +80,18 @@
             // 
             // dataGridView_appts
             // 
+            dataGridView_appts.AllowUserToAddRows = false;
+            dataGridView_appts.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView_appts.MultiSelect = false;
+            dataGridView_appts.ReadOnly = true;
+            dataGridView_appts.RowHeadersVisible = false;
+            dataGridView_appts.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView_appts.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView_appts.Location = new Point(354, 328);
             dataGridView_appts.Name = "dataGridView_appts";
             dataGridView_appts.Size = new Size(604, 235);
             dataGridView_appts.TabIndex = 3;
+            dataGridView_appts.CellDoubleClick += DataGridView_appts_CellDoubleClick;
             // 
             // label_customers
             // 
@@ -135,6 +144,7 @@
             dateTimePicker_appts.Name = "dateTimePicker_appts";
             dateTimePicker_appts.Size = new Size(336, 23);
             dateTimePicker_appts.TabIndex = 10;
+            dateTimePicker_appts.ValueChanged += DateTimePicker_appts_ValueChanged;
             // 
             // comboBox_appts_filter
             // 
@@ -144,6 +154,7 @@
             comboBox_appts_filter.Name = "comboBox_appts_filter";
             comboBox_appts_filter.Size = new Size(336, 23);
             comboBox_appts_filter.TabIndex = 11;
+            comboBox_appts_filter.SelectedIndexChanged += comboBox_appts_filter_SelectedIndexChanged;
             // 
             // label_appts_filter
             // 
