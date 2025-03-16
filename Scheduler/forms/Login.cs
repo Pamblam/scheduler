@@ -17,6 +17,12 @@ namespace Scheduler{
             );
 
             if (loginSuccess) {
+                string exeDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                string filePath = Path.Combine(exeDirectory, "Login_History.txt");
+                File.AppendAllText(filePath, $"{DataAccessLayer.User.userName} {DateTime.Now.ToString()}\n");
+
+                Debug.WriteLine($"Logged login to: {filePath}");
+
                 this.Close();
                 mainScreen.populateWindow();
                 mainScreen.CheckForUpcomingAppts();
