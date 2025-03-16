@@ -474,6 +474,31 @@ namespace Scheduler {
             return res;
         }
 
+        public static DataTable GetUpcomingAppointments() {
+            string query = "select a.appointmentId, c.customerName, a.start, a.type from appointment a left join customer c on c.customerId = a.customerId WHERE start BETWEEN NOW() AND DATE_ADD(NOW(), INTERVAL 15 MINUTE) and userId = @userId order by start asc";
+            MySqlParameter[] parameters = new MySqlParameter[] {
+                new MySqlParameter("@userId", MySqlDbType.Int32){ Value = User.userId }
+            };
+            DataTable res = RunSQLQuery(query, parameters);
+            DataTableToLocalTime(res);
+            return res;
+        }
+
+        public static DataTable Top10LongestAppointmentsReport() {
+            string query = "SELECT u.userName, c.customerName, a.start, a.type, TIMESTAMPDIFF(HOUR, a.start, a.end) AS hours, TIMESTAMPDIFF(MINUTE, a.start, a.end) % 60 AS minutes, TIMESTAMPDIFF(MINUTE, start, end) AS total_minutes FROM appointment a left join user u on u.userId = a.userId left join customer c on c.customerId = a.customerId order by total_minutes desc limit 10";
+            return RunSQLQuery(query, null);
+        }
+
+        public static DataTable GetUserSchedulesReport() {
+            string query = "SELECT u.userName, c.customerName, a.type, a.start, a.end FROM appointment a left join user u on u.userId = a.userId left join customer c on c.customerId = a.customerId order by a.userId asc, a.start asc";
+            return RunSQLQuery(query, null);
+        }
+
+        public static DataTable GetAppointmentTypesByMonthReport() {
+            string query = "SELECT COUNT(*) AS total, CONCAT(MONTHNAME(start), ', ', YEAR(start)) AS month_year, type FROM client_schedule.appointment GROUP BY CONCAT(MONTHNAME(start), ', ', YEAR(start)), type, MONTH(start), YEAR(start) ORDER BY YEAR(start) asc, MONTH(start) asc\r\n";
+            return RunSQLQuery(query, null);
+        }
+
         public static DataTable GetAllAppointmentsForDateDataTable(DateTime selectedDate) {
             DateTime startOfDay = selectedDate.Date;
             DateTime endOfDay = selectedDate.Date.AddDays(1);

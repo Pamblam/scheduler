@@ -1,4 +1,6 @@
-﻿using Scheduler.Models;
+﻿using Mysqlx.Crud;
+using MySqlX.XDevAPI.Relational;
+using Scheduler.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Scheduler {
     public partial class MainScreen : Form {
@@ -27,6 +30,40 @@ namespace Scheduler {
             label_username.Text = $"Logged in as: {DataAccessLayer.User.userName}";
             populateCustomersGrid();
             populateSchedulesGrid();
+        }
+
+        public void CheckForUpcomingAppts() {
+            DataTable upcoming = DataAccessLayer.GetUpcomingAppointments();
+            if (upcoming.Rows.Count > 0) {
+
+                StringBuilder sb = new StringBuilder();
+                sb.Append($"You have {upcoming.Rows.Count} upcoming appointment(s):");
+                sb.AppendLine();
+                int counter = 1;
+
+                foreach (DataRow row in upcoming.Rows) {
+                    DateTime dateTimeValue = Convert.ToDateTime(row[2]);
+                    string startTime = dateTimeValue.ToString("hh:mm tt");
+                    sb.Append($"  {counter}. {row[3]} appointment with {row[1]} at {startTime}.");
+                    counter++;
+                    sb.AppendLine();
+                }
+                sb.Append($"Would you like to view the first one now?");
+
+                string message = sb.ToString();
+
+                DialogResult result = MessageBox.Show(
+                    message,
+                    "Upcoming Appointments",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Exclamation
+                );
+                if (result == DialogResult.Yes) {
+                    AppointmentForm f = new AppointmentForm(this, (int)upcoming.Rows[0][0], null);
+                    f.ShowDialog();
+                }
+
+            }
         }
 
         private void button_add_customer_Click(object sender, EventArgs e) {
@@ -52,7 +89,7 @@ namespace Scheduler {
                 DateTime day = dateTimePicker_appts.Value.Date.ToUniversalTime();
                 DataTable appts = DataAccessLayer.GetAllAppointmentsForDateDataTable(day);
                 dataGridView_appts.DataSource = appts;
-            } else { 
+            } else {
                 // "All Appointments" == selectedValue or anything else if the user tries to type something in..
                 DataTable appts = DataAccessLayer.GetAllAppointmentsDataTable();
                 dataGridView_appts.DataSource = appts;
@@ -114,6 +151,113 @@ namespace Scheduler {
                 dateTimePicker_appts.Visible = false;
             }
             populateSchedulesGrid();
+        }
+
+        private void button_report1_Click(object sender, EventArgs e) {
+            DataTable dataTable = DataAccessLayer.GetAppointmentTypesByMonthReport();
+
+            // Lambda to process the data into a string
+            Func<DataTable, string> tableProcessor = dt => {
+                string rpt = "";
+                string current_month = "";
+                foreach (DataRow row in dt.Rows) {
+                    string row_month = (string)row[1];
+                    string row_count = row[0].ToString();
+                    string type = (string)row[2];
+
+                    if (current_month != row_month) {
+                        if (row_month != "") rpt += "\r\n";
+                        rpt += $"{row_month}:\r\n";
+                        current_month = row_month;
+                    }
+
+                    rpt += $"\tAppointment Type: {type}\t\tNum of Appts: {row_count}\r\n";
+                }
+                return rpt;
+            };
+
+            ReportForm form = new ReportForm("Appointment Types by Month", dataTable, tableProcessor);
+            form.ShowDialog();
+        }
+
+        private void button_report2_Click(object sender, EventArgs e) {
+            DataTable dataTable = DataAccessLayer.GetUserSchedulesReport();
+
+            // Lambda to process the data into a string
+            Func<DataTable, string> tableProcessor = dt => {
+                string rpt = "";
+
+                string current_day = "";
+                string current_user = "";
+
+                foreach (DataRow row in dt.Rows) {
+                    string userName = (string)row[0];
+                    string customerName = (string)row[1];
+                    string type = (string)row[2];
+                    DateTime start = (DateTime)row[3];
+                    DateTime end = (DateTime)row[4];
+                    start = start.ToLocalTime();
+                    end = end.ToLocalTime();
+                    string day = start.ToString("MMMM dd, yyyy");
+                    string start_time = start.ToString("hh:mm tt");
+                    string end_time = end.ToString("hh:mm tt");
+
+                    if (current_user != userName) {
+                        if (current_user != "") rpt += "\r\n";
+                        rpt += $"Schedule for {userName}:\r\n";
+                        current_user = userName;
+                    }
+
+                    if (current_day != day) {
+                        rpt += $"\t{day}:\r\n";
+                        current_day = day;
+                    }
+
+                    rpt += $"\t\tAppointment with {customerName} ({type})\r\n\t\t{start_time} - {end_time}\r\n";
+                }
+                return rpt;
+            };
+
+            ReportForm form = new ReportForm("User Schedules", dataTable, tableProcessor);
+            form.ShowDialog();
+        }
+
+        private void button_report3_Click(object sender, EventArgs e) {
+            DataTable dataTable = DataAccessLayer.Top10LongestAppointmentsReport();
+
+            // Lambda to process the data into a string
+            Func<DataTable, string> tableProcessor = dt => {
+                string rpt = "";
+                int count = 1;
+
+                foreach (DataRow row in dt.Rows) {
+
+
+                    string userName = (string)row[0];
+                    string customerName = (string)row[1];
+                    DateTime start = (DateTime)row[2];
+                    string type = (string)row[3];
+                    long hours = (long)row[4];
+                    long minutes = (long)row[5];
+
+                    start = start.ToLocalTime();
+                    string day = start.ToString("MMMM dd, yyyy");
+
+                    rpt += $"{count}. ";
+                    if (hours > 0) rpt += $"{hours} hour";
+                    if (hours > 1) rpt += "s";
+                    if (hours > 0 && minutes > 0) rpt += " and ";
+                    if (minutes > 0) rpt += $"{minutes} minute";
+                    if (minutes > 1) rpt += "s";
+                    rpt += $":\r\n\t{userName}'s {type} appointment with {customerName} on {day}\r\n\r\n";
+
+                    count++;
+                }
+                return rpt;
+            };
+
+            ReportForm form = new ReportForm($"Top {dataTable.Rows.Count} Longest Appointments", dataTable, tableProcessor);
+            form.ShowDialog();
         }
     }
 }

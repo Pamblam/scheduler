@@ -19,6 +19,7 @@ namespace Scheduler{
             if (loginSuccess) {
                 this.Close();
                 mainScreen.populateWindow();
+                mainScreen.CheckForUpcomingAppts();
             } else {
                 MessageBox.Show(
                     Properties.Resources.login_error_msg,

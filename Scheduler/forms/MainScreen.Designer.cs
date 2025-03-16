@@ -82,13 +82,13 @@ namespace Scheduler {
             // 
             dataGridView_appts.AllowUserToAddRows = false;
             dataGridView_appts.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView_appts.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView_appts.Location = new Point(354, 328);
             dataGridView_appts.MultiSelect = false;
+            dataGridView_appts.Name = "dataGridView_appts";
             dataGridView_appts.ReadOnly = true;
             dataGridView_appts.RowHeadersVisible = false;
             dataGridView_appts.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridView_appts.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView_appts.Location = new Point(354, 328);
-            dataGridView_appts.Name = "dataGridView_appts";
             dataGridView_appts.Size = new Size(604, 235);
             dataGridView_appts.TabIndex = 3;
             dataGridView_appts.CellDoubleClick += DataGridView_appts_CellDoubleClick;
@@ -98,18 +98,18 @@ namespace Scheduler {
             label_customers.AutoSize = true;
             label_customers.Location = new Point(354, 13);
             label_customers.Name = "label_customers";
-            label_customers.Size = new Size(237, 15);
+            label_customers.Size = new Size(305, 15);
             label_customers.TabIndex = 5;
-            label_customers.Text = "Customers | Double click customer to edit ↓";
+            label_customers.Text = "Customers | Double click a customer to edit or delete it ↓";
             // 
             // label_appointments
             // 
             label_appointments.AutoSize = true;
             label_appointments.Location = new Point(354, 303);
             label_appointments.Name = "label_appointments";
-            label_appointments.Size = new Size(343, 15);
+            label_appointments.Size = new Size(365, 15);
             label_appointments.TabIndex = 6;
-            label_appointments.Text = "Appointments (Select a Customer to make a new Appointment)";
+            label_appointments.Text = "Appointments | Select a Customer 🡑 to make a new Appointment 🡒";
             // 
             // button_report1
             // 
@@ -117,8 +117,9 @@ namespace Scheduler {
             button_report1.Name = "button_report1";
             button_report1.Size = new Size(336, 23);
             button_report1.TabIndex = 7;
-            button_report1.Text = "Appts by Type Report";
+            button_report1.Text = "Appointment Types by Month";
             button_report1.UseVisualStyleBackColor = true;
+            button_report1.Click += button_report1_Click;
             // 
             // button_report2
             // 
@@ -126,8 +127,9 @@ namespace Scheduler {
             button_report2.Name = "button_report2";
             button_report2.Size = new Size(336, 23);
             button_report2.TabIndex = 8;
-            button_report2.Text = "User Schedules Report";
+            button_report2.Text = "User Schedules";
             button_report2.UseVisualStyleBackColor = true;
+            button_report2.Click += button_report2_Click;
             // 
             // button_report3
             // 
@@ -135,8 +137,9 @@ namespace Scheduler {
             button_report3.Name = "button_report3";
             button_report3.Size = new Size(336, 23);
             button_report3.TabIndex = 9;
-            button_report3.Text = "??? Report";
+            button_report3.Text = "Longest Appointments";
             button_report3.UseVisualStyleBackColor = true;
+            button_report3.Click += button_report3_Click;
             // 
             // dateTimePicker_appts
             // 
