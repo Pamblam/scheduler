@@ -18,6 +18,26 @@ namespace Scheduler {
         int? selectedCustomerId = null;
 
         public MainScreen() {
+
+            string version_dotnet = System.Environment.Version.ToString();
+            string version_os = Environment.OSVersion.ToString();
+            string current_culture = System.Globalization.CultureInfo.CurrentCulture.Name;
+            string current_ui_culture = System.Globalization.CultureInfo.CurrentUICulture.Name;
+            string version_windows_forms = typeof(System.Windows.Forms.Form).Assembly.GetName().Version.ToString();
+
+            Debug.WriteLine($"\ndotnet version: {version_dotnet}\n"+
+                $"os version: {version_os}\n"+
+                $"culture: {current_culture}\n"+
+                $"ui culture: {current_ui_culture}\n"+
+                $"WF version: {version_windows_forms}\n");
+
+            // Lab environment:
+            // dotnet version: 8.0.7
+            // os version: Microsoft Windows NT 10.0.19045.0
+            // culture: en-US
+            // ui culture: en-US
+            // WF version: 8.0.0.0
+
             InitializeComponent();
             label_username.Text = "";
             Form_login loginForm = new Form_login(this);
