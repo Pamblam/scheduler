@@ -90,8 +90,8 @@ namespace Scheduler {
  
             } catch (Exception ex) {
 
-                throw new Exception($"Query Failed: {ex.Message}");
-                // return false;
+                // throw new Exception($"Query Failed: {ex.Message}");
+                return false;
 
             } finally {
 

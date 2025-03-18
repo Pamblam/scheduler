@@ -3,6 +3,7 @@ using System.Diagnostics;
 namespace Scheduler{
     public partial class Form_login : Form {
         private MainScreen mainScreen;
+        bool loginSuccess = false;
 
         public Form_login(MainScreen mainScreen) {
             InitializeComponent();
@@ -11,7 +12,7 @@ namespace Scheduler{
 
         private void button_login_Click(object sender, EventArgs e) {
 
-            bool loginSuccess = DataAccessLayer.Login(
+            loginSuccess = DataAccessLayer.Login(
                 textBox_username.Text,
                 textBox_password.Text
             );
@@ -36,6 +37,24 @@ namespace Scheduler{
             }
 
             
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e) {
+            base.OnFormClosing(e);
+            if (!loginSuccess) {
+                DialogResult result = MessageBox.Show(
+                    "You have not logged in. Would you like to close the app?",
+                    "Confirm",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Exclamation
+                );
+                if (result == DialogResult.Yes) {
+                    Environment.Exit(1);
+                    return;
+                } else {
+                    e.Cancel = true;
+                }
+            }
         }
     }
 }

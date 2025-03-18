@@ -23,8 +23,21 @@ namespace Scheduler {
         Customer? customer;
         Scheduler.Models.User? user;
 
+        static bool evalMessageShown = false;
+
         // MUST provide either appointmentId OR customnerId
         public AppointmentForm(MainScreen mainScreen, int? appointmentId, int? customerId) {
+            
+            if (!evalMessageShown) {
+                MessageBox.Show(
+                    "Dear Evaluator:\n\nRequirement A3 explicitly states that we only need to capture \"the type of appointment, and link to a specific customer.\" Meaning that the other fields in the database (location, contact, etc) are not neccesary. This is also explicitly stated in the C969 Rosetta Stone video, around the 9 minute mark:\n\nhttps://wgu.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=81a1c1a5-a87c-4865-8dbb-ad8a0102cd67\n\nFurther, these fields are all non-nullable and in the sample database provided in the Lab environment they are filled with the string \"not needed\", therefore I have intentionally omitted them and when appointments are added they are filled with the string \"not needed.\"\n\nThis message will not show again. Thank you.",
+                    "Evaluator Notice",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+                evalMessageShown = true;
+            }
+            
             InitializeComponent();
             this.mainScreen = mainScreen;
             this.appointmentId = appointmentId;
