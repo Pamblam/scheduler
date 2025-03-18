@@ -3,12 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\Adelphia\\Desktop\\dotnet\\scheduler\\Scheduler\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D2E193AA-603D-41DB-B0F1-FFC7F94EB97D}|Scheduler.csproj|c:\\users\\adelphia\\desktop\\dotnet\\scheduler\\scheduler\\dataaccesslayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D2E193AA-603D-41DB-B0F1-FFC7F94EB97D}|Scheduler.csproj|solutionrelative:dataaccesslayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D2E193AA-603D-41DB-B0F1-FFC7F94EB97D}|Scheduler.csproj|c:\\users\\adelphia\\desktop\\dotnet\\scheduler\\scheduler\\forms\\mainscreen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D2E193AA-603D-41DB-B0F1-FFC7F94EB97D}|Scheduler.csproj|solutionrelative:forms\\mainscreen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D2E193AA-603D-41DB-B0F1-FFC7F94EB97D}|Scheduler.csproj|c:\\users\\adelphia\\desktop\\dotnet\\scheduler\\scheduler\\forms\\customerform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D2E193AA-603D-41DB-B0F1-FFC7F94EB97D}|Scheduler.csproj|solutionrelative:forms\\customerform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D2E193AA-603D-41DB-B0F1-FFC7F94EB97D}|Scheduler.csproj|c:\\users\\adelphia\\desktop\\dotnet\\scheduler\\scheduler\\forms\\appointmentform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D2E193AA-603D-41DB-B0F1-FFC7F94EB97D}|Scheduler.csproj|solutionrelative:forms\\appointmentform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D2E193AA-603D-41DB-B0F1-FFC7F94EB97D}|Scheduler.csproj|c:\\users\\adelphia\\desktop\\dotnet\\scheduler\\scheduler\\dataaccesslayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D2E193AA-603D-41DB-B0F1-FFC7F94EB97D}|Scheduler.csproj|solutionrelative:dataaccesslayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D2E193AA-603D-41DB-B0F1-FFC7F94EB97D}|Scheduler.csproj|C:\\Users\\Adelphia\\Desktop\\dotnet\\scheduler\\Scheduler\\forms\\appointmentform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
@@ -17,14 +25,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{D2E193AA-603D-41DB-B0F1-FFC7F94EB97D}|Scheduler.csproj|c:\\users\\adelphia\\desktop\\dotnet\\scheduler\\scheduler\\forms\\mainscreen.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D2E193AA-603D-41DB-B0F1-FFC7F94EB97D}|Scheduler.csproj|solutionrelative:forms\\mainscreen.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D2E193AA-603D-41DB-B0F1-FFC7F94EB97D}|Scheduler.csproj|c:\\users\\adelphia\\desktop\\dotnet\\scheduler\\scheduler\\forms\\customerform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D2E193AA-603D-41DB-B0F1-FFC7F94EB97D}|Scheduler.csproj|solutionrelative:forms\\customerform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D2E193AA-603D-41DB-B0F1-FFC7F94EB97D}|Scheduler.csproj|c:\\users\\adelphia\\desktop\\dotnet\\scheduler\\scheduler\\forms\\mainscreen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D2E193AA-603D-41DB-B0F1-FFC7F94EB97D}|Scheduler.csproj|solutionrelative:forms\\mainscreen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,71 +34,75 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "DataAccessLayer.cs",
               "DocumentMoniker": "C:\\Users\\Adelphia\\Desktop\\dotnet\\scheduler\\Scheduler\\DataAccessLayer.cs",
               "RelativeDocumentMoniker": "DataAccessLayer.cs",
               "ToolTip": "C:\\Users\\Adelphia\\Desktop\\dotnet\\scheduler\\Scheduler\\DataAccessLayer.cs",
               "RelativeToolTip": "DataAccessLayer.cs",
-              "ViewState": "AgIAAEsAAAAAAAAAAAAowFIAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAMQAAAAAAAAAAAAcwOIAAABaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-18T19:51:27.223Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "AppointmentForm.cs [Design]",
               "DocumentMoniker": "C:\\Users\\Adelphia\\Desktop\\dotnet\\scheduler\\Scheduler\\forms\\AppointmentForm.cs",
               "RelativeDocumentMoniker": "forms\\AppointmentForm.cs",
-              "ToolTip": "C:\\Users\\LabUser\\Desktop\\scheduler\\Scheduler\\forms\\AppointmentForm.cs [Design]",
-              "RelativeToolTip": "..\\..\\..\\..\\..\\LabUser\\Desktop\\scheduler\\Scheduler\\forms\\AppointmentForm.cs [Design]",
+              "ToolTip": "C:\\Users\\Adelphia\\Desktop\\dotnet\\scheduler\\Scheduler\\forms\\AppointmentForm.cs [Design]",
+              "RelativeToolTip": "forms\\AppointmentForm.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-18T19:29:58.336Z"
+              "WhenOpened": "2025-03-18T19:29:58.336Z",
+              "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "AppointmentForm.cs",
               "DocumentMoniker": "C:\\Users\\Adelphia\\Desktop\\dotnet\\scheduler\\Scheduler\\forms\\AppointmentForm.cs",
               "RelativeDocumentMoniker": "forms\\AppointmentForm.cs",
               "ToolTip": "C:\\Users\\Adelphia\\Desktop\\dotnet\\scheduler\\Scheduler\\forms\\AppointmentForm.cs",
               "RelativeToolTip": "forms\\AppointmentForm.cs",
-              "ViewState": "AQIAAAwAAAAAAAAAAAAiwCAAAABEAgAA",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAiwCAAAABEAgAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-18T19:26:55.14Z"
+              "WhenOpened": "2025-03-18T19:26:55.14Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 1,
               "Title": "CustomerForm.cs",
               "DocumentMoniker": "C:\\Users\\Adelphia\\Desktop\\dotnet\\scheduler\\Scheduler\\forms\\CustomerForm.cs",
               "RelativeDocumentMoniker": "forms\\CustomerForm.cs",
               "ToolTip": "C:\\Users\\Adelphia\\Desktop\\dotnet\\scheduler\\Scheduler\\forms\\CustomerForm.cs",
               "RelativeToolTip": "forms\\CustomerForm.cs",
-              "ViewState": "AQIAALoAAAAAAAAAAAAmwNkAAAAtAAAA",
+              "ViewState": "AgIAALoAAAAAAAAAAAAmwNkAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-18T18:38:04.957Z"
+              "WhenOpened": "2025-03-18T18:38:04.957Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 0,
               "Title": "MainScreen.cs",
               "DocumentMoniker": "C:\\Users\\Adelphia\\Desktop\\dotnet\\scheduler\\Scheduler\\forms\\MainScreen.cs",
               "RelativeDocumentMoniker": "forms\\MainScreen.cs",
               "ToolTip": "C:\\Users\\Adelphia\\Desktop\\dotnet\\scheduler\\Scheduler\\forms\\MainScreen.cs",
               "RelativeToolTip": "forms\\MainScreen.cs",
-              "ViewState": "AQIAADwAAAAAAAAAAAAAAEoAAAASAAAA",
+              "ViewState": "AgIAADwAAAAAAAAAAAAAAFYAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-18T17:57:39.884Z"
+              "WhenOpened": "2025-03-18T17:57:39.884Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "MainScreen.Designer.cs",
               "DocumentMoniker": "C:\\Users\\Adelphia\\Desktop\\dotnet\\scheduler\\Scheduler\\forms\\MainScreen.Designer.cs",
               "RelativeDocumentMoniker": "forms\\MainScreen.Designer.cs",
